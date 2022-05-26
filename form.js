@@ -1,72 +1,28 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <script type="module" src="components/mmcCard.js"></script>
-   <script src="/components/mmcProject.js"></script>
-   <script type="module" src="/components/cardCommit.js"></script>
-   <!-- ss<script type="module" src="components/mmcTable.js"></script> -->
-   <!-- <script type="module" src="components/mmcTable2.js"></script> -->
-     <link  rel="stylesheet" href="styles.css">
-     <link  rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    
-    <title>IBIM</title>
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-light bg-light">
-            <div>
-                <h4>Projects</h4>
-            </div>
-            <div>
-                <button id="returnBtn">return</button>
-            </div>
-            <div>
-                <input class="radius seach-btn" type="text" value="" placeholder="&#x1F50E;&#xFE0E;">
-            </div>
-        </nav>
-    </header>
-    
-    <div></div>
+/*class NewProject extends HTMLElement{
+    constructor(){
+        super();
+    }
 
-    <div id="project-panel"> 
-    </div>
-    <div id="commitList">
-
-
-    </div>
-   
- <!--    <div id="cardCommit">
-        <div class="codeCommit"><span class="fieldName">Code:</span></div>
-        <div class="tag"><span class="fieldName">Tag:</span></div>
-        <div class="description"><span class="fieldName">Description:</span></div>
-        <div class="active"><span class="fieldName">Active:</span></div>
-        <div class="VisorTitle"><span class="fieldName">Visor:</span></div>
-        <div class="path"><span class="fieldName">Path:</span></div>
-
-    </div> -->
-
-    <style>
+    connectedCallback(){
+        this.innerHTML=
+       
+        `
+        <style>
 
         button{
             background-color:gainsboro;
             border: solid 1pt black;
         }
-
         button:hover{
             background-color: aliceblue;
         }
-
         button:active{
             background-color: black;
             color:white;
         }
-
-      
-
+        #form{
+            display: none ;
+        }
         form{
             width:350px;
             height: auto;
@@ -75,33 +31,28 @@
             background-color:gainsboro;
             position:relative;
         }
-
-        #form{
-            display: none;
-        }
-
         #hideForm{
             background-color: gainsboro;
             border: 0;
             position:absolute ;
             right: 25px;
             top: 25px;
+            
+          
+            
         }
-
         form button:hover{
             background-color: aliceblue;
         }
-
         form button:active{
             background-color: black;
             color: white;
         }
-
         form label{
             width:250px;
             font-weight: bold;
+           
         }
-
         #projectName, #projectCode, #clientCode, #projectDescription{
             width: 300px;
             padding: 3px 10px;
@@ -110,22 +61,19 @@
             border-radius: 3px;
             margin: 8px 0px ;
         }
-
         form input[type="submit"]{
             width: 100%;
             padding: 8px 16px;
             margin-bottom: 20px;
         }
-
         form input[type="submit"]:hover{
             cursor: pointer;
         }
-
         textarea{
             width: 100%;
             height: 100px;
         }
-        
+
     </style>
 
     <button id="addProject" onclick="show();">+</button>
@@ -135,8 +83,6 @@
         <form>
         <button id="hideForm" onclick="hide();">x</button>
         <br><br>
-
-
         <label for="projectName">Nombre</label>
         <input type = "text" id= "projectName" placeholder= "Nombre del proyecto">
         <br><br>
@@ -149,12 +95,7 @@
         <label for="projectDescription">Descripción</label>
         <textarea id="projectDescription" placeholder = "Descripción del proyecto"></textarea>
         <br><br>
-        <input type = "submit" id="addNewProject" value = "Agregar Proyecto">
-
-
-        <div id="msg">
-            <data id="display"></data>
-        </div>
+        <input type = "submit" value = "Agregar Proyecto">
         </form>
 
         </div>
@@ -169,10 +110,48 @@
             document.getElementById("form").style.display = "none";
         };
         </script>
+
+        `
+    
+        function show(){
+        document.getElementById("form").style.display = "block";
+        };
+
+        function hide(){
+        document.getElementById("form").style.display = "none";
+        };
+   
+        
+    }
+
+}
+window.customElements.define("new-project",NewProject); */
+
+
+
+
+let projects = [];
+
+const addProject = (e) => {
+    e.preventDefault(); //para que no recargue la pagina
+
+    let project = {
+        name: document.getElementById("projectName").value,
+        projectCode: document.getElementById("projectCode").value,
+        clientCode: document.getElementById("clientCode").value,
+        description: document.getElementById("projectDescription").value
+    }
+
+    projects.push(project);   
     
 
-    <script src="Javascript/dataResponse.js"></script>
-    <script src="form.js"></script>
-    <!-- <script src="javascript/dataResponseCommit.js"></script> -->
-</body>
-</html>
+    let data = document.querySelector("#msg data");
+    data.textContent = JSON.stringify(projects) //para que la informacion se convierta en una cadena de texto JSON
+
+    
+
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+    document.getElementById("addNewProject").addEventListener("click", addProject);
+});
